@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('content')
 	<h1>Create a product</h1>
@@ -36,7 +36,7 @@
 		</div>
 
 		<div>
-			<input class="btn btn-primary btn-lg" type="submit" value="Create Product">
+			<input class="btn btn-primary btn-lg text-white btn-lg mt-3" type="submit" value="Create Product">
 		</div>
 	</form>
 @endsection
