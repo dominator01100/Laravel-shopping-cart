@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration {
+	// $user->orders()->save( App\Models\Order::factory()->make());
 	/**
 	 * Run the migrations.
 	 *

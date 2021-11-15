@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Image;
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,4 +52,16 @@ class User extends Authenticatable {
 	protected $dates = [
 		'admin_since',
 	];
+
+	public function orders() {
+		return $this->hasMany(Order::class, 'customer_id');
+	}
+
+	public function payments() {
+		return $this->hasManyThrough(Payment::class, Order::class, 'customer_id');
+	}
+
+	public function image() {
+		return $this->morphOne(Image::class, 'imageable');
+	}
 }

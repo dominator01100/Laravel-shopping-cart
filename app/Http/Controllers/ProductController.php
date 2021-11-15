@@ -22,28 +22,15 @@ class ProductController extends Controller {
 	}
 
 	public function store(ProductRequest $request) {
-		// session()->forget('error');
-
-		/*$product = Product::create([
-		'title' => request()->title,
-		'description' => request()->description,
-		'price' => request()->price,
-		'stock' => request()->stock,
-		'status' => request()->status,
-		]);*/
 
 		$product = Product::create($request->validated());
-		// session()->flash('success', "The new product with id {$product->id} was created");
 
-		// return redirect()->back();
-		// return redirect()->action('MainController@index');
 		return redirect()
 			->route('products.index')
 			->withSuccess("The new product with id {$product->id} was created");
 	}
 
 	public function show(Product $product) {
-		// $product = Product::findOrFail($product);
 
 		return view('products.show')->with([
 			'product' => $product,
@@ -58,7 +45,6 @@ class ProductController extends Controller {
 	}
 
 	public function update(ProductRequest $request, Product $product) {
-		// $product = Product::findOrFail($product);
 
 		$product->update($request->validated());
 
@@ -68,7 +54,6 @@ class ProductController extends Controller {
 	}
 
 	public function destroy(Product $product) {
-		// $product = Product::findOrFail($product);
 
 		$product->delete();
 

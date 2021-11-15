@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory {
+	// $order = App\Models\Order::factory()->create();
+	// $order = App\Models\Create::factory()->create();
 	/**
 	 * Define the model's default state.
 	 *

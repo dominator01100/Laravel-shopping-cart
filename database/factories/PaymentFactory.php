@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PaymentFactory extends Factory {
+	// $payment = App\Models\Payment::factory()->make(['order_id' => $order->id]);
+	// $payment = App\Models\Payment::factory()->create(['order_id' => $order->id]);
 	/**
 	 * Define the model's default state.
 	 *
