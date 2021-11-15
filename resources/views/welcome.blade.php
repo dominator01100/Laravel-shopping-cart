@@ -10,7 +10,7 @@
     @else
         <div class="row">
             @foreach ($products as $product)
-                <div class="col-3">
+                <div class="col-12 col-md-4 col-lg-3">
                     @include('components.product-card')
                 </div>
             @endforeach
