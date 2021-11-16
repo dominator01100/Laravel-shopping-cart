@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller {
 
@@ -39,24 +41,36 @@ class OrderController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$user = $request->user();
+		return DB::transaction(function () use ($request) {
 
-		$order = $user->orders()->create([
-			'status' => 'pending',
-		]);
+			$user = $request->user();
 
-		$cart = $this->cartService->getFromCookie();
+			$order = $user->orders()->create([
+				'status' => 'pending',
+			]);
 
-		$cartProductsWithQuantity = $cart
-			->products
-			->mapWithKeys(function ($product) {
-				$element[$product->id] = ['quantity' => $product->pivot->quantity];
+			$cart = $this->cartService->getFromCookie();
 
-				return $element;
-			});
+			$cartProductsWithQuantity = $cart
+				->products
+				->mapWithKeys(function ($product) {
+					$quantity = $product->pivot->quantity;
 
-		$order->products()->attach($cartProductsWithQuantity->toArray());
+					if ($product->stock < $quantity) {
+						throw ValidationException::withMessages([
+							'product' => "There is not enough stock for the quantity you required of {$product->title}",
+						]);
+					}
 
-		return redirect()->route('orders.payments.create', ['order' => $order]);
+					$product->decrement('stock', $quantity);
+					$element[$product->id] = ['quantity' => $quantity];
+
+					return $element;
+				});
+
+			$order->products()->attach($cartProductsWithQuantity->toArray());
+
+			return redirect()->route('orders.payments.create', ['order' => $order]);
+		}, 5);
 	}
 }
