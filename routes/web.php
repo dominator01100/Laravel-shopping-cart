@@ -17,20 +17,9 @@ Route::get('/', 'MainController@index')->name('main');
 
 route::resource('products', 'ProductController');
 
-/*Route::get('products', 'ProductController@index')->name('products.index');
+Route::resource('products.carts', 'ProductCartController')->only(['store', 'destroy']);
 
-Route::get('products/create', 'ProductController@create')->name('products.create');
-
-Route::post('products', 'ProductController@store')->name('products.store');
-
-// Route::get('products/{product:title}', 'ProductController@show')->name('products.show');
-Route::get('products/{product}', 'ProductController@show')->name('products.show');
-
-Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit');
-
-Route::match(['put', 'patch'], 'products/{product}', 'ProductController@update')->name('products.update');
-
-Route::delete('products/{product}', 'ProductController@destroy')->name('products.destroy');*/
+Route::resource('carts', 'CartController')->only(['index']);
 
 Auth::routes();
 

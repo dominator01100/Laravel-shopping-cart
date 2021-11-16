@@ -14,7 +14,7 @@
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead class="thead-light">
-					<tr>
+					<tr class="text-center">
 						<th>Id</th>
 						<th>Title</th>
 						<th>Description</th>
@@ -33,15 +33,15 @@
 						<td>{{ $product->price }}</td>
 						<td>{{ $product->stock }}</td>
 						<td>{{ $product->status }}</td>
-						<td class="d-flex">
+						<td class="">
 							<a class="btn btn-link" href="{{ route('products.show', ['product' => $product->id]) }}">Show</a>
 
 							<a class="btn btn-link" href="{{ route('products.edit', ['product' => $product->id]) }}">Edit</a>
 
-							<form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post">
+							<form class="d-inline-block" action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post">
 								@csrf
 								@method('DELETE')
-								<input class="btn btn-link" type="submit" value="Delete ">
+								<input class="btn btn-link" type="submit" value="Delete">
 							</form>
 						</td>
 					</tr>

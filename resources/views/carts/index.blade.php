@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Welcome</h1>
+    <h1>Your Cart</h1>
 
-    @empty ($products)
-        <div class="alert alert-danger" role="alert">
-            No products yet!
+    @if (!isset($cart) || $cart->products->isEmpty())
+        <div class="alert alert-warning" role="alert">
+            Your cart is empty.
         </div>
     @else
         <div class="row">
-            @foreach ($products as $product)
+            @foreach ($cart->products as $product)
                 <div class="col-12 col-sm-6 col-lg-3">
                     @include('components.product-card')
                 </div>
             @endforeach
         </div>
-    @endempty
+    @endif
 @endsection
